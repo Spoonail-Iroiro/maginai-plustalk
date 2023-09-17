@@ -44,7 +44,7 @@ class Plustalk {
         const talkOverridePattern = a?.charactor.talkOverridePattern;
         const talkSubPattern = a?.charactor.talkSubPattern;
         maginai.logToInGameLogDebug(
-          `[${talkPattern}, ${talk}, ${talkOverridePattern}, ${talkSubPattern}]`
+          `[${talkPattern}, ${talk}, ${talkSubPattern}, ${talkOverridePattern}]`
         );
 
         return origMethod.call(this, a, ...rest);

@@ -1,4 +1,9 @@
-import { replaceThroughTalk } from "./edit-talk";
+import {
+  replaceThroughTalk,
+  replaceThroughTalkObject,
+  mergeTalkObject,
+  TalkDataNotFoundError,
+} from "./edit-talk";
 class Downloader {
   constructor() {
     this.downloadLink = document.createElement("a");
@@ -51,19 +56,45 @@ ${talkText.replace("\\n", "\\\\n")}
 \`;`;
   return template;
 }
-function downloadTalkText(talkId, templateTalkId) {
+function downloadTalkText(
+  templateTalkId,
+  patternId,
+  subPatternId,
+  overridePatternId
+) {
   const promise = new Promise((resolve, reject) => {
     const talkData = tWgm.tGameTalkResource.talkData;
     const downloader = new Downloader();
-    const idForLoad = 20000 + parseInt(talkId, 10);
+    const idForLoad = 20000 + parseInt(patternId, 10);
+    // 空テンプレートの読み込み
     loadTalkDataToDst(templateTalkId, idForLoad, (isOk) => {
       if (!isOk) reject();
-      replaceThroughTalk(talkData, talkId, idForLoad);
+      // 対象のパターンを読み込み
+      replaceThroughTalk(talkData, patternId, idForLoad);
+      // overridePatternが指定されているなら上書き
+      // nullが入力されるケースもありうるため!=
+      if (overridePatternId != undefined) {
+        const overridePattern = talkData.overridePatterns[overridePatternId];
+        if (overridePattern === undefined) {
+          throw new TalkDataNotFoundError(overridePatternId);
+        }
+        replaceThroughTalkObject(overridePattern, talkData.patterns[idForLoad]);
+      }
+      // subPatternが指定されているなら追加
+      // nullが入力されるケースもありうるため!=
+      if (subPatternId != undefined) {
+        const subPattern = talkData.subPatterns[subPatternId];
+        if (subPattern === undefined) {
+          throw new TalkDataNotFoundError(subPatternId);
+        }
+        mergeTalkObject(subPattern, talkData.patterns[idForLoad]);
+      }
       const talkText = tWgm.tGameTalkResource.encodeMyTalkData(idForLoad);
-      if (talkText == false) throw new Error(`Talk data ${talkId} not found`);
+      if (talkText == false)
+        throw new Error(`Talk data ${patternId} not found`);
       downloader.download(
-        formatTalkText(`${talkId}`, talkText),
-        `${talkId}.txt`
+        formatTalkText(`${patternId}`, talkText),
+        `${patternId}.txt`
       );
       resolve();
     });
