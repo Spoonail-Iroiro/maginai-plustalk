@@ -1,6 +1,6 @@
-import maginai from "maginai";
+import maginai from 'maginai';
 // maginaiからloggerの取得
-const logger = maginai.logging.getLogger("plustalk"); // getLoggerに渡すnameは任意だがわかりやすさのためMod名が望ましい
+const logger = maginai.logging.getLogger('plustalk'); // getLoggerに渡すnameは任意だがわかりやすさのためMod名が望ましい
 // MODでのコンソールへのログ出力はconsole.logではなくこのようにloggerを取得して行うのを推奨
 // ユーザーでレベル制御や特定のModのログ抑制などができる
 

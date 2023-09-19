@@ -1,23 +1,23 @@
-import maginai from "maginai";
+import maginai from 'maginai';
 import {
   loadTalkDataToDst,
   downloadTalkText,
   downloadTalkTextAsRaw,
-} from "./modules/get-talk-data";
+} from './modules/get-talk-data';
 import {
   replaceThroughTalk,
   mergeTalk,
   TalkDataNotFoundError,
   replaceThroughTalkObject,
   mergeTalkObject,
-} from "./modules/edit-talk";
+} from './modules/edit-talk';
 
-const logger = maginai.logging.getLogger("plustalk");
+const logger = maginai.logging.getLogger('plustalk');
 let setting = null;
 
 function formatArray(obj) {
   if (obj instanceof Array) {
-    return "[" + obj.map((e) => formatArray(e)).toString() + "]";
+    return '[' + obj.map((e) => formatArray(e)).toString() + ']';
   } else {
     return obj.toString();
   }
@@ -36,8 +36,8 @@ class Plustalk {
     this.mergeTalkObject = mergeTalkObject;
   }
   setCheckTalk() {
-    if (!setting["isCheckTalkMode"]) return;
-    maginai.patcher.patchMethod(tGameCharactor, "affect", (origMethod) => {
+    if (!setting['isCheckTalkMode']) return;
+    maginai.patcher.patchMethod(tGameCharactor, 'affect', (origMethod) => {
       const rtnFn = function (a, ...rest) {
         const talk = a?.charactor.talk;
         const talkPattern = a?.charactor.talkPattern;
@@ -56,10 +56,10 @@ class Plustalk {
   replaceThroughTalks() {
     const talkData = tWgm.tGameTalkResource.talkData;
 
-    const pairs = setting["replaceThroughSrcAndDsts"];
+    const pairs = setting['replaceThroughSrcAndDsts'];
 
     for (let [src, dst] of pairs) {
-      logger.debug("Replace through:", src, dst);
+      logger.debug('Replace through:', src, dst);
       try {
         const dstPatternId = dst instanceof Array ? dst[0] : dst;
         replaceThroughTalk(talkData, src, dstPatternId);
@@ -78,10 +78,10 @@ class Plustalk {
   mergeTalks() {
     const talkData = tWgm.tGameTalkResource.talkData;
 
-    const pairs = setting["mergeSrcAndDsts"];
+    const pairs = setting['mergeSrcAndDsts'];
 
     for (let [src, dst] of pairs) {
-      logger.debug("Merge:", src, dst);
+      logger.debug('Merge:', src, dst);
       try {
         const dstPatternId = dst instanceof Array ? dst[0] : dst;
         mergeTalk(talkData, src, dstPatternId);
@@ -105,13 +105,13 @@ class Plustalk {
       return;
     }
 
-    let message = "%c[charactor]変更に失敗した会話データがあります\n";
+    let message = '%c[charactor]変更に失敗した会話データがあります\n';
     const skippedMerge =
-      "追加: " + this.skippedMerge.map((e) => formatArray(e)).join(", ") + "\n";
+      '追加: ' + this.skippedMerge.map((e) => formatArray(e)).join(', ') + '\n';
     const skippedReplacedThrough =
-      "置換: " +
-      this.skippedReplacedThrough.map((e) => formatArray(e)).join(", ") +
-      "\n";
+      '置換: ' +
+      this.skippedReplacedThrough.map((e) => formatArray(e)).join(', ') +
+      '\n';
     maginai.logToInGameLogDebug(
       message + skippedReplacedThrough + skippedMerge
     );
@@ -121,7 +121,7 @@ class Plustalk {
 const plustalk = new Plustalk();
 
 const postprocess = maginai
-  .loadJsData("./js/mod/mods/plustalk/talk-setting.js")
+  .loadJsData('./js/mod/mods/plustalk/talk-setting.js')
   .then((loaded) => {
     setting = loaded;
     // If the setting is true, show talk info on in-geme log when the player affect someone
