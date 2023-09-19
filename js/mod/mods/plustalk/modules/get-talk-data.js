@@ -3,18 +3,18 @@ import {
   replaceThroughTalkObject,
   mergeTalkObject,
   TalkDataNotFoundError,
-} from "./edit-talk";
+} from './edit-talk';
 class Downloader {
   constructor() {
-    this.downloadLink = document.createElement("a");
-    this.downloadLink.href = "javascript:void(0)";
-    this.downloadLink.download = "temp.txt";
+    this.downloadLink = document.createElement('a');
+    this.downloadLink.href = 'javascript:void(0)';
+    this.downloadLink.download = 'temp.txt';
     document.body.appendChild(this.downloadLink);
   }
 
   download(data, name) {
     this.downloadLink.download = name;
-    const blob = new Blob([data], { type: "text/plain" });
+    const blob = new Blob([data], { type: 'text/plain' });
     window.navigator.msSaveBlob
       ? window.navigator.msSaveBlob(blob, name)
       : (this.downloadLink.href = window.URL.createObjectURL(blob));
@@ -24,7 +24,7 @@ class Downloader {
 
 function loadTalkDataToDst(templateId, dstId, callback) {
   tWgm.tGameTalkResource.parent.loadJsData(
-    "./mydata/talk/" + templateId + ".js",
+    './mydata/talk/' + templateId + '.js',
     function (c, a) {
       if (!c) return callback(!1);
       c = a.match(
@@ -49,7 +49,7 @@ function formatTalkText(name, talkText) {
 // -----------------------------------------------------------------------START
 #@@@@#
 ${name}
-${talkText.replace("\\n", "\\\\n")}
+${talkText.replace('\\n', '\\\\n')}
 // -------------------------------------------------------------------------END
 // ここまで
 // ----------------------------------------------------------------------------

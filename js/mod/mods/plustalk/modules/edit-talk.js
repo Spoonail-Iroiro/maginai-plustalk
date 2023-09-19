@@ -1,8 +1,8 @@
-const logger = maginai.logging.getLogger("plustalk");
+const logger = maginai.logging.getLogger('plustalk');
 
 class TalkDataNotFoundError extends Error {
   static {
-    this.prototype.name = "TalkDataNotFoundError";
+    this.prototype.name = 'TalkDataNotFoundError';
   }
   constructor(talkId, ...rest) {
     super(`会話データが存在しません ID：${talkId}`, ...rest);
@@ -38,7 +38,7 @@ function traverseTalkObject(src, dst, fn, noError) {
             throw new Error(message);
           }
         }
-      } else if (typeof src_obj === "object") {
+      } else if (typeof src_obj === 'object') {
         keys.push(k);
         internal(src_obj, dst_obj, keys);
         keys.pop();
@@ -103,7 +103,7 @@ function replaceThroughTalk(talkData, srcId, dstId) {
   }
   const resultTalks = [];
   for (let i in srcTalks) {
-    resultTalks.push(srcTalks[i] === "" ? dstTalks[i] : srcTalks[i]);
+    resultTalks.push(srcTalks[i] === '' ? dstTalks[i] : srcTalks[i]);
 
     // replace talks[dstId]
     talkData.talks[dstId] = resultTalks;
