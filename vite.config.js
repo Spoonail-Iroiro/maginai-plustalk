@@ -31,7 +31,6 @@ export default defineConfig({
     {
       name: "copy-mod-assets",
       closeBundle: async () => {
-        // 外部jsファイルであるmessage.jsを出力先にコピー
         const devRoot = "js/mod/mods/plustalk";
         const buildRoot = "game/game/js/mod/mods/plustalk";
         try {

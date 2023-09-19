@@ -4,10 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite build"
+    "dev": "vite build",
+    "build": "rimraf dist && npm run dev && node ./tools/release.js"
   },
   "devDependencies": {
     "maginai": "^0.1.2",
+    "rimraf": "^5.0.1",
     "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "-": "^0.0.1"
   }
 }
