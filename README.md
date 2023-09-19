@@ -10,6 +10,8 @@
 - 固有NPC等の口調を口調ファイルとしてダウンロードするユーティリティ付き
 
 ## 導入方法
+[Release](https://github.com/Spoonail-Iroiro/maginai-plustalk/releases)ページより最新バージョンの配布zip`plustalk-X.Y.Z.zip`をダウンロードしてください（`X.Y.Z`はバージョン）  
+
 配布zipの中の`plustalk`フォルダがModフォルダになっていますのでこれを`mods`フォルダに配置してください。  
 
 また、`plustalk`の中の`talk-setting.js`ファイルが設定ファイルです。  
