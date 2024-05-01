@@ -36,3 +36,8 @@ Modの動作のためには、導入後に編集して設定を行う必要が�
 [口調の改変方法](USAGE.md)
 
 [口調ファイルの出力](EXPORT.md)
+
+## 問い合わせ
+問い合わせ・要望などはこのリポジトリのissueを作成するか、こちらの連絡先のいずれかにお願いします。
+
+https://whiteblackspace.hatenablog.com/contact-coaw
