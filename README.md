@@ -1,3 +1,5 @@
+[English](README_en.md)
+
 # plustalk - 口調差し替え・追加Mod 
 ## 概要
 [maginai](https://github.com/Spoonail-Iroiro/maginai)で導入可能な異世界の創造者 非公式Modです。  
